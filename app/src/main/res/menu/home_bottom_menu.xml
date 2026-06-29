@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/bottomMenuHome"
+        android:title="Home"
+        app:showAsAction="always"
+        android:icon="@drawable/home_icon"/>
+
+    <item
+        android:id="@+id/bottomMenuMyfarm"
+        android:title="My Farm"
+        app:showAsAction="always"
+        android:icon="@drawable/my_farm_icon"/>
+
+    <item
+        android:id="@+id/bottomMenuScan"
+        android:title="Scan"
+        app:showAsAction="always"
+        android:icon="@drawable/leaf_scan_icon"
+        android:iconTint="@color/dark_green"/>
+
+    <item
+        android:id="@+id/bottomMenuReports"
+        android:title="Reports"
+        app:showAsAction="always"
+        android:icon="@drawable/reports_icon"/>
+
+    <item
+        android:id="@+id/bottomMenuProfile"
+        android:title="Profile"
+        app:showAsAction="always"
+        android:icon="@drawable/my_profile"/>
+
+
+</menu>
