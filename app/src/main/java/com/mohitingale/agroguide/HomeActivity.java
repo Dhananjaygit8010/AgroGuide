@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements
     DrawerLayout drawerlayout;
     ImageView ivmenubtn;
     NavigationView navigationView;
-
+// hello this is from my side Dhananjay
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
