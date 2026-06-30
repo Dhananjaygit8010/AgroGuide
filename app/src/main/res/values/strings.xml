@@ -3,4 +3,35 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_my_location">MyLocationActivity</string>
+    <string name="title_doctor">Crop Doctor</string>
+    <string name="action_scan">Scan Crop</string>
+    <string name="live_analysis">LIVE ANALYSIS</string>
+    <string name="metric_gps">GPS</string>
+    <string name="gps_placeholder">34.05, -118.24</string>
+    <string name="metric_objects">DETECTION</string>
+    <string name="objects_placeholder">ACTIVE</string>
+    <string name="metric_light">LIGHT</string>
+    <string name="metric_light_optimal">OPTIMAL</string>
+    <string name="scan_hint_text">Position crop leaf inside the frame</string>
+    <string name="diagnosis_result_title">Diagnosis Report</string>
+    <string name="share_report">Share Report</string>
+    <string name="visual_markers_badge">Visual Markers Identified</string>
+    <string name="label_confidence">Confidence</string>
+    <string name="label_severity">Severity</string>
+    <string name="label_spread">Spread</string>
+    <string name="label_est_recovery">Est. Recovery</string>
+    <string name="label_recommended_actions">Recommended Actions</string>
+    <string name="label_prevention_tips">Prevention Tips</string>
+    <string name="action_save_history">Save to History</string>
+    <string name="action_ask_ai_assistant">Ask AI Assistant</string>
+    <string name="diagnosis_unknown_disease">Unknown Disease</string>
+    <string name="diagnosis_unknown_scientific_name">Unknown Scientific Name</string>
+    <string name="diagnosis_na">N/A</string>
+    <string name="diagnosis_unknown_risk">UNKNOWN</string>
+    <string name="diagnosis_no_prevention">No prevention tips available.</string>
+    <string name="diagnosis_organic_remedy_fallback">Organic Remedy</string>
+    <string name="diagnosis_no_organic_remedy">No organic remedies recommended.</string>
+    <string name="diagnosis_chemical_remedy_fallback">Chemical Remedy</string>
+    <string name="diagnosis_no_chemical_remedy">No chemical remedies recommended.</string>
+    <string name="diagnosis_failed_parse">Failed to parse diagnosis data.</string>
 </resources>

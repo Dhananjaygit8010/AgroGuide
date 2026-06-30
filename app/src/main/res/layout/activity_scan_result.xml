@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/background_light">
+
+    <!-- App Bar with Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        app:elevation="@dimen/card_elevation_small">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/diagnosis_result_title"
+            app:titleTextAppearance="@style/TextAppearance.Material3.TitleMedium"
+            app:titleTextColor="@color/text_primary">
+
+            <ImageButton
+                android:id="@+id/btnShareReport"
+                android:layout_width="@dimen/camera_button_size"
+                android:layout_height="@dimen/camera_button_size"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/spacing_small"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_share"
+                android:padding="@dimen/spacing_small"
+                app:tint="@color/text_primary"
+                android:contentDescription="@string/share_report"/>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/padding_bottom_scroll"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true"
+            android:paddingHorizontal="@dimen/screen_margin"
+            android:paddingTop="@dimen/spacing_medium">
+
+            <!-- Error Fallback -->
+            <TextView
+                android:id="@+id/tvRawOutput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:textColor="@color/error_red"
+                android:padding="@dimen/spacing_medium"
+                tools:text="Error Output"/>
+
+            <!-- Data Cards Container -->
+            <LinearLayout
+                android:id="@+id/layoutDataCards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <!-- Hero Image Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/card_corner_radius_large"
+                    app:cardElevation="@dimen/card_elevation_small"
+                    app:strokeWidth="@dimen/inset_zero"
+                    android:layout_marginBottom="@dimen/spacing_medium">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_diagnosis_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/header_height_diagnosis"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img_rice_field"
+                            android:contentDescription="@string/action_scan"/>
+
+                        <!-- "Visual Markers Identified" Badge -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/visual_markers_badge"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_xs"
+                            android:textStyle="bold"
+                            android:background="@drawable/bg_pill_analysis"
+                            android:paddingHorizontal="@dimen/spacing_medium"
+                            android:paddingVertical="@dimen/spacing_small"
+                            android:layout_gravity="top|start"
+                            android:layout_margin="@dimen/spacing_medium"/>
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Disease Info + Confidence -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/card_corner_radius_large"
+                    app:cardElevation="@dimen/card_elevation_small"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="@dimen/inset_zero"
+                    android:layout_marginBottom="@dimen/spacing_medium">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_large">
+
+                        <!-- Risk badge + Confidence circle row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <!-- Risk Level Chip -->
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipRiskLevel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="ACTION REQUIRED"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_xs"
+                                android:textStyle="bold"
+                                app:chipBackgroundColor="@color/error_red"
+                                app:chipStrokeWidth="@dimen/inset_zero"
+                                app:chipMinHeight="@dimen/button_height_small"/>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"/>
+
+                            <!-- Confidence Ring -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center">
+
+                                <FrameLayout
+                                    android:layout_width="@dimen/icon_size_xxl"
+                                    android:layout_height="@dimen/icon_size_xxl">
+
+                                    <ProgressBar
+                                        style="?android:attr/progressBarStyleHorizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:max="100"
+                                        android:progress="100"
+                                        android:progressDrawable="@drawable/bg_circle_soft" />
+
+                                    <TextView
+                                        android:id="@+id/chipConfidence"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        tools:text="94%"
+                                        android:textSize="@dimen/text_medium"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/primary_green"/>
+                                </FrameLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/label_confidence"
+                                    android:textSize="@dimen/text_xs"
+                                    android:textAllCaps="true"
+                                    android:letterSpacing="0.08"
+                                    android:textColor="@color/text_secondary"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Disease Name -->
+                        <TextView
+                            android:id="@+id/tvDiseaseName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_medium"
+                            tools:text="Powdery Mildew"
+                            android:textSize="@dimen/text_h2"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"/>
+
+                        <!-- Scientific / Infection Type -->
+                        <TextView
+                            android:id="@+id/tvScientificName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/spacing_tiny"
+                            tools:text="Fungal Infection (Podosphaera)"
+                            android:textSize="@dimen/text_body"
+                            android:textColor="@color/text_secondary"/>
+
+                        <!-- Divider -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/stroke_width_small"
+                            android:layout_marginVertical="@dimen/spacing_medium"
+                            android:background="@color/divider"/>
+
+                        <!-- Stats Row: SEVERITY | SPREAD | EST. RECOVERY -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- Severity -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/label_severity"
+                                    android:textSize="@dimen/text_xs"
+                                    android:textAllCaps="true"
+                                    android:letterSpacing="0.08"
+                                    android:textColor="@color/text_secondary"/>
+                                <TextView
+                                    android:id="@+id/tvHealthScore"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/spacing_tiny"
+                                    tools:text="High"
+                                    android:textSize="@dimen/text_large"
+                                    android:textStyle="bold"
+                                    android:maxLines="2"
+                                    android:ellipsize="end"
+                                    android:textColor="@color/error_red"/>
+                            </LinearLayout>
+
+                            <!-- Spread -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/label_spread"
+                                    android:textSize="@dimen/text_xs"
+                                    android:textAllCaps="true"
+                                    android:letterSpacing="0.08"
+                                    android:textColor="@color/text_secondary"/>
+                                <TextView
+                                    android:id="@+id/tvSpread"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/spacing_tiny"
+                                    tools:text="Medium"
+                                    android:textSize="@dimen/text_large"
+                                    android:textStyle="bold"
+                                    android:maxLines="2"
+                                    android:ellipsize="end"
+                                    android:textColor="@color/warning"/>
+                            </LinearLayout>
+
+                            <!-- Est. Recovery -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/label_est_recovery"
+                                    android:textSize="@dimen/text_xs"
+                                    android:textAllCaps="true"
+                                    android:letterSpacing="0.08"
+                                    android:textColor="@color/text_secondary"/>
+                                <TextView
+                                    android:id="@+id/tvRecovery"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/spacing_tiny"
+                                    tools:text="12 Days"
+                                    android:textSize="@dimen/text_large"
+                                    android:textStyle="bold"
+                                    android:maxLines="2"
+                                    android:ellipsize="end"
+                                    android:textColor="@color/primary_green"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Recommended Actions Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginBottom="@dimen/spacing_small">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_recommended_actions"
+                        android:textSize="@dimen/text_large"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"/>
+                </LinearLayout>
+
+                <!-- Action 1: Organic Remedy -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/card_corner_radius_large"
+                    app:cardElevation="@dimen/card_elevation_small"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="@dimen/inset_zero"
+                    android:layout_marginBottom="@dimen/spacing_small">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_large"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <!-- Icon -->
+                        <FrameLayout
+                            android:layout_width="@dimen/icon_size_xl"
+                            android:layout_height="@dimen/icon_size_xl"
+                            android:background="@drawable/bg_circle_green_light">
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_medium"
+                                android:layout_height="@dimen/icon_size_medium"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_local_florist"
+                                app:tint="@color/primary_green"
+                                android:contentDescription="@string/label_recommended_actions"/>
+                        </FrameLayout>
+
+                        <!-- Text -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/spacing_medium">
+
+                            <TextView
+                                android:id="@+id/tvOrganicTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="Apply Organic Fungicide"
+                                android:textSize="@dimen/text_medium"
+                                android:textStyle="bold"
+                                android:textColor="@color/text_primary"/>
+
+                            <TextView
+                                android:id="@+id/tvOrganicDesc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_tiny"
+                                tools:text="Neem oil or sulfur spray suggested."
+                                android:textSize="@dimen/text_body_small"
+                                android:textColor="@color/text_secondary"/>
+                        </LinearLayout>
+
+                        <!-- Chevron -->
+                        <ImageView
+                            android:layout_width="@dimen/icon_size_small"
+                            android:layout_height="@dimen/icon_size_small"
+                            android:src="@drawable/ic_arrow_forward"
+                            app:tint="@color/text_secondary"
+                            android:contentDescription="@string/label_recommended_actions"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Action 2: Chemical Remedy -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/card_corner_radius_large"
+                    app:cardElevation="@dimen/card_elevation_small"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="@dimen/inset_zero"
+                    android:layout_marginBottom="@dimen/spacing_medium">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_large"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <!-- Icon -->
+                        <FrameLayout
+                            android:layout_width="@dimen/icon_size_xl"
+                            android:layout_height="@dimen/icon_size_xl"
+                            android:background="@drawable/bg_circle_red_light">
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_medium"
+                                android:layout_height="@dimen/icon_size_medium"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_science"
+                                app:tint="@color/error_red"
+                                android:contentDescription="@string/label_recommended_actions"/>
+                        </FrameLayout>
+
+                        <!-- Text -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="@dimen/spacing_medium">
+
+                            <TextView
+                                android:id="@+id/tvChemicalTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="Prune Affected Leaves"
+                                android:textSize="@dimen/text_medium"
+                                android:textStyle="bold"
+                                android:textColor="@color/text_primary"/>
+
+                            <TextView
+                                android:id="@+id/tvChemicalDesc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/spacing_tiny"
+                                tools:text="Remove yellowing leaves to prevent spread."
+                                android:textSize="@dimen/text_body_small"
+                                android:textColor="@color/text_secondary"/>
+                        </LinearLayout>
+
+                        <!-- Chevron -->
+                        <ImageView
+                            android:layout_width="@dimen/icon_size_small"
+                            android:layout_height="@dimen/icon_size_small"
+                            android:src="@drawable/ic_arrow_forward"
+                            app:tint="@color/text_secondary"
+                            android:contentDescription="@string/label_recommended_actions"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Prevention Tips Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/card_corner_radius_large"
+                    app:cardElevation="@dimen/card_elevation_small"
+                    app:cardBackgroundColor="@color/green_light_bg"
+                    app:strokeWidth="@dimen/inset_zero"
+                    android:layout_marginBottom="@dimen/spacing_medium">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_large">
+
+                        <!-- Title with shield icon -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="@dimen/spacing_medium">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size_medium"
+                                android:layout_height="@dimen/icon_size_medium"
+                                android:src="@drawable/ic_shield_check"
+                                app:tint="@color/primary_green"
+                                android:contentDescription="@string/label_prevention_tips"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/spacing_small"
+                                android:text="@string/label_prevention_tips"
+                                android:textSize="@dimen/text_large"
+                                android:textStyle="bold"
+                                android:textColor="@color/text_primary"/>
+                        </LinearLayout>
+
+                        <!-- Prevention Tips Content -->
+                        <TextView
+                            android:id="@+id/tvPreventionTips"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="• Improve air circulation by spacing plants further apart.\n\n• Water plants at the base to keep foliage dry.\n\n• Use resistant varieties for future crop cycles."
+                            android:textSize="@dimen/text_body"
+                            android:lineSpacingExtra="@dimen/spacing_small"
+                            android:textColor="@color/text_primary"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Bottom Action Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:layout_marginBottom="@dimen/spacing_xl">
+
+                    <!-- Save to History -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSaveReport"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/button_height_large"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/spacing_small"
+                        android:text="@string/action_save_history"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        app:autoSizeTextType="uniform"
+                        app:strokeColor="@color/divider"
+                        app:strokeWidth="@dimen/stroke_width"
+                        app:cornerRadius="@dimen/card_corner_radius_large"/>
+
+                    <!-- Consult Expert (Primary) -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAskAssistant"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/button_height_large"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/spacing_small"
+                        android:text="@string/action_ask_ai_assistant"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        app:autoSizeTextType="uniform"
+                        app:backgroundTint="@color/primary_green"
+                        app:cornerRadius="@dimen/card_corner_radius_large"
+                        app:elevation="@dimen/card_elevation_large"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+                </LinearLayout>
+
+                <!-- Hidden: Find Store button (kept for Java compatibility) -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFindStore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:contentDescription="@string/action_scan"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Centered Progress Spinner -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        tools:visibility="gone"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

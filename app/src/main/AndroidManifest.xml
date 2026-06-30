@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -71,6 +72,9 @@
             android:exported="false" />
         <activity
             android:name=".HomeFragmentActivity.DiseaseDetectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeFragmentActivity.ScanResultActivity"
             android:exported="false" />
         <activity
             android:name=".HomeFragmentActivity.CropAdvisoryActivity"

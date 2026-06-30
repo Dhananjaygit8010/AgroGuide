@@ -6,37 +6,54 @@
     android:id="@+id/drawerlayout"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
-<LinearLayout
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeActivity"
-    android:orientation="vertical"
-    android:weightSum="100">
-    <include
-        layout="@layout/toolbar_activity"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="90"
-        android:background="#F5F5F5"
-        android:id="@+id/homeFrameLayout">
-    </FrameLayout>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:background="@drawable/bottom_nav_bg"
-        app:labelVisibilityMode="labeled"
-        android:elevation="40dp"
-        app:itemActiveIndicatorStyle="@null"
-        app:itemIconTint="@color/nav_item_color"
-        app:itemTextColor="@color/nav_item_color"
-        android:id="@+id/homeBottomNav"
-        app:menu="@menu/home_bottom_menu"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        tools:context=".HomeActivity"
+        android:background="#F5F5F5">
+
+        <!-- Toolbar -->
+        <include
+            android:id="@+id/toolbarLayout"
+            layout="@layout/toolbar_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Frame Layout for Fragment Container -->
+        <FrameLayout
+            android:id="@+id/homeFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#F5F5F5"
+            app:layout_constraintTop_toBottomOf="@id/toolbarLayout"
+            app:layout_constraintBottom_toTopOf="@id/homeBottomNav"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+       <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/homeBottomNav"
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+           android:paddingHorizontal="14dp"
+            android:background="@drawable/bg_bottom_nav_pro"
+            android:elevation="8dp"
+            app:itemRippleColor="@null"
+            app:labelVisibilityMode="unlabeled"
+            app:itemIconSize="26dp"
+            app:itemIconTint="@color/nav_item_color"
+            app:itemTextColor="@color/nav_item_color"
+            app:menu="@menu/home_bottom_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="280dp"
@@ -44,4 +61,5 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/navigation_header"
         app:menu="@menu/home_menu"/>
+
 </androidx.drawerlayout.widget.DrawerLayout>

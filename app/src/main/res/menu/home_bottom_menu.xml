@@ -22,12 +22,6 @@
         android:iconTint="@color/dark_green"/>
 
     <item
-        android:id="@+id/bottomMenuReports"
-        android:title="Reports"
-        app:showAsAction="always"
-        android:icon="@drawable/reports_icon"/>
-
-    <item
         android:id="@+id/bottomMenuProfile"
         android:title="Profile"
         app:showAsAction="always"

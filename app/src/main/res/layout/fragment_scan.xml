@@ -1,13 +1,431 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_light"
     tools:context=".Fragment.ScanFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Gradient Header -->
+    <View
+        android:id="@+id/header_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@color/brand_green_light"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_fade"
+        app:layout_constraintBottom_toBottomOf="@id/header_bg"/>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="@dimen/inset_zero"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_doctor"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:title="@string/title_doctor"
+            app:titleTextColor="@color/text_primary"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            app:elevation="@dimen/inset_zero"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/padding_bottom_scroll"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true"
+            android:padding="@dimen/spacing_large">
+
+            <!-- Hero Section: Scan Button -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/card_corner_radius_hero"
+                app:cardElevation="@dimen/card_elevation_large"
+                app:strokeWidth="@dimen/stroke_width_small"
+                app:strokeColor="@color/divider"
+                app:cardBackgroundColor="@color/white"
+                android:layout_marginBottom="@dimen/spacing_xl">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="@dimen/spacing_xxl">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AI Crop Scanner"
+                        android:textSize="@dimen/text_hero"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginBottom="@dimen/spacing_small"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Detect diseases instantly with AI"
+                        android:textSize="@dimen/text_medium"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginBottom="@dimen/spacing_xxl"/>
+
+                    <!-- Scanner Button -->
+                    <FrameLayout
+                        android:id="@+id/btn_start_scan"
+                        android:layout_width="@dimen/scan_button_size"
+                        android:layout_height="@dimen/scan_button_size"
+                        android:background="@drawable/bg_smart_lens_button"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless">
+                        
+                        <ImageView
+                            android:layout_width="@dimen/scan_icon_size"
+                            android:layout_height="@dimen/scan_icon_size"
+                            android:src="@drawable/ic_camera_alt"
+                            android:layout_gravity="center"
+                            app:tint="@color/white"/>
+                            
+                        <!-- Pulse Effect Circles (Visual only) -->
+                        <View
+                            android:layout_width="@dimen/scan_pulse_size"
+                            android:layout_height="@dimen/scan_pulse_size"
+                            android:background="@drawable/bg_circle_outline_white"
+                            android:layout_gravity="center"
+                            android:alpha="@dimen/alpha_pulse_effect"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tap to Scan"
+                        android:textSize="@dimen/text_h3"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_green"
+                        android:layout_marginTop="@dimen/spacing_xl"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- How it Works Steps -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How it Works"
+                android:textSize="@dimen/text_h3"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="@dimen/spacing_medium"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                android:weightSum="3"
+                android:layout_marginBottom="@dimen/spacing_xl">
+
+                <!-- Step 1 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="@dimen/spacing_small">
+                    
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="@dimen/step_icon_bg_size"
+                        android:layout_height="@dimen/step_icon_bg_size"
+                        app:cardCornerRadius="@dimen/step_icon_radius"
+                        app:cardElevation="@dimen/inset_zero"
+                        app:cardBackgroundColor="@color/green_light_bg">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_camera_alt"
+                            android:padding="@dimen/step_icon_padding"
+                            app:tint="@color/primary_green"/>
+                    </com.google.android.material.card.MaterialCardView>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1. Capture"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_body"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginTop="@dimen/spacing_small"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Take a photo"
+                        android:textSize="@dimen/text_caption"
+                        android:textColor="@color/text_secondary"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/spacing_tiny"/>
+                </LinearLayout>
+
+                <!-- Step 2 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="@dimen/spacing_small">
+                    
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="@dimen/step_icon_bg_size"
+                        android:layout_height="@dimen/step_icon_bg_size"
+                        app:cardCornerRadius="@dimen/step_icon_radius"
+                        app:cardElevation="@dimen/inset_zero"
+                        app:cardBackgroundColor="@color/green_light_bg">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_search"
+                            android:padding="@dimen/step_icon_padding"
+                            app:tint="@color/primary_green"/>
+                    </com.google.android.material.card.MaterialCardView>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2. Analyze"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_body"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginTop="@dimen/spacing_small"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AI checks it"
+                        android:textSize="@dimen/text_caption"
+                        android:textColor="@color/text_secondary"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/spacing_tiny"/>
+                </LinearLayout>
+
+                <!-- Step 3 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="@dimen/spacing_small">
+                    
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="@dimen/step_icon_bg_size"
+                        android:layout_height="@dimen/step_icon_bg_size"
+                        app:cardCornerRadius="@dimen/step_icon_radius"
+                        app:cardElevation="@dimen/inset_zero"
+                        app:cardBackgroundColor="@color/green_light_bg">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_local_florist"
+                            android:padding="@dimen/step_icon_padding"
+                            app:tint="@color/primary_green"/>
+                    </com.google.android.material.card.MaterialCardView>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3. Get Remedy"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_body"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginTop="@dimen/spacing_small"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See treatment"
+                        android:textSize="@dimen/text_caption"
+                        android:textColor="@color/text_secondary"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/spacing_tiny"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Recent Scans Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Recent Scans"
+                    android:textSize="@dimen/text_h3"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View All"
+                    android:textSize="@dimen/text_body"
+                    android:textColor="@color/primary_green"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <!-- Empty State / Placeholder for Recent Scans -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/card_corner_radius_medium"
+                app:cardElevation="@dimen/card_elevation_small"
+                app:cardBackgroundColor="@color/white"
+                android:layout_marginBottom="@dimen/spacing_small">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/spacing_medium"
+                    android:gravity="center_vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="@dimen/list_image_size"
+                        android:layout_height="@dimen/list_image_size"
+                        app:cardCornerRadius="@dimen/card_corner_radius_small"
+                        app:cardElevation="@dimen/inset_zero">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_rice_field"
+                            android:scaleType="centerCrop"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/spacing_medium">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rice Blast Disease"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/text_large"
+                            android:textColor="@color/text_primary"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Diagnosed today"
+                            android:textSize="@dimen/text_caption"
+                            android:textColor="@color/text_secondary"
+                            android:layout_marginTop="@dimen/spacing_tiny"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/text_secondary"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/card_corner_radius_medium"
+                app:cardElevation="@dimen/card_elevation_small"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/spacing_medium"
+                    android:gravity="center_vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="@dimen/list_image_size"
+                        android:layout_height="@dimen/list_image_size"
+                        app:cardCornerRadius="@dimen/card_corner_radius_small"
+                        app:cardElevation="@dimen/inset_zero">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_maize"
+                            android:padding="@dimen/spacing_standard"
+                            android:background="@color/orange_light_bg"
+                            app:tint="@color/orange_dark"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/spacing_medium">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Maize Leaf Blight"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/text_large"
+                            android:textColor="@color/text_primary"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Diagnosed yesterday"
+                            android:textSize="@dimen/text_caption"
+                            android:textColor="@color/text_secondary"
+                            android:layout_marginTop="@dimen/spacing_tiny"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_medium"
+                        android:layout_height="@dimen/icon_size_medium"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/text_secondary"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

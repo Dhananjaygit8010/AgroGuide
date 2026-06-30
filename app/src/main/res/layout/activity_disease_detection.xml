@@ -1,10 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragmentActivity.DiseaseDetectionActivity">
+    android:animateLayoutChanges="true"
+    android:fitsSystemWindows="true"
+    android:background="@color/black">
+
+    <!-- LAYER 1: Camera Preview -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- LAYER 2: Cinematic Edge Gradients -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scanner_overlay_size"
+        android:background="@drawable/bg_camera_top_fade"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scanner_overlay_size"
+        android:background="@drawable/bg_camera_bottom_fade"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <!-- LAYER 3: Top Bar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/camera_top_bar_padding"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Back -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/camera_button_size"
+            android:layout_height="@dimen/camera_button_size"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@drawable/bg_glass_circle_dark"
+            android:padding="@dimen/camera_button_padding"
+            app:tint="@color/camera_neon_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/action_scan"/>
+
+        <!-- LIVE: ANALYSIS Pill -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/camera_pill_height"
+            android:background="@drawable/bg_pill_analysis"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/camera_pill_padding_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <View
+                android:layout_width="@dimen/camera_dot_size"
+                android:layout_height="@dimen/camera_dot_size"
+                android:background="@drawable/bg_circle_green"
+                android:layout_marginEnd="6dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/live_analysis"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_xs_plus"
+                android:letterSpacing="0.08"/>
+        </LinearLayout>
+
+        <!-- Flash Toggle -->
+        <ImageButton
+            android:id="@+id/btnFlash"
+            android:layout_width="@dimen/camera_button_size"
+            android:layout_height="@dimen/camera_button_size"
+            android:src="@drawable/ic_flash_off"
+            android:background="@drawable/bg_glass_circle_dark"
+            android:padding="@dimen/camera_button_padding"
+            app:tint="@color/camera_neon_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/action_scan"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- LAYER 4: Metrics Row -->
+    <LinearLayout
+        android:id="@+id/metricsRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/camera_metrics_padding_horizontal"
+        android:layout_marginTop="@dimen/camera_metrics_margin_top"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <!-- GPS -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_glass_gradient"
+            android:padding="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_small">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/metric_gps"
+                android:textSize="@dimen/text_xs"
+                android:letterSpacing="0.08"
+                android:textColor="@color/camera_neon_green"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gps_placeholder"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:fontFamily="monospace"/>
+        </LinearLayout>
+
+        <!-- OBJECTS -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_glass_gradient"
+            android:padding="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_small">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/metric_objects"
+                android:textSize="@dimen/text_xs"
+                android:letterSpacing="0.08"
+                android:textColor="@color/camera_neon_green"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/objects_placeholder"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold"
+                android:textColor="@color/camera_neon_green"
+                android:fontFamily="monospace"/>
+        </LinearLayout>
+
+        <!-- LIGHT -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_glass_gradient"
+            android:padding="@dimen/spacing_small">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/metric_light"
+                android:textSize="@dimen/text_xs"
+                android:letterSpacing="0.08"
+                android:textColor="@color/camera_neon_green"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/metric_light_optimal"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- LAYER 5: Scan Frame + Animated Line -->
+    <FrameLayout
+        android:id="@+id/scanBoxContainer"
+        android:layout_width="@dimen/camera_scan_frame_width"
+        android:layout_height="@dimen/camera_scan_frame_height"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.45">
+
+        <!-- Scan Frame Border -->
+        <View
+            android:id="@+id/viewScanBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_scan_frame_premium"/>
+
+        <!-- Animated Scan Line -->
+        <View
+            android:id="@+id/viewScanLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_width_thick"
+            android:background="@color/camera_neon_green"
+            android:alpha="0.85"
+            android:layout_marginHorizontal="@dimen/spacing_medium"/>
+    </FrameLayout>
+
+    <!-- LAYER 6: Scan Hint Text -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_hint_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_small"
+        android:alpha="0.7"
+        android:layout_marginTop="@dimen/spacing_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scanBoxContainer"/>
+
+    <!-- LAYER 7: Bottom Controls (Floating) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomControls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/camera_bottom_controls_padding_bottom"
+        android:paddingTop="@dimen/camera_bottom_controls_padding_top"
+        android:paddingHorizontal="@dimen/screen_margin"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Gallery (Left) -->
+        <ImageButton
+            android:id="@+id/btnGallery"
+            android:layout_width="@dimen/icon_size_xxl"
+            android:layout_height="@dimen/icon_size_xxl"
+            android:background="@drawable/bg_glass_circle_dark"
+            android:src="@drawable/ic_photo_library"
+            android:padding="@dimen/spacing_medium"
+            app:tint="@color/camera_neon_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnCapture"
+            app:layout_constraintBottom_toBottomOf="@id/btnCapture"
+            android:contentDescription="@string/action_scan"/>
+
+        <!-- Shutter (Center — Neon Glow) -->
+        <ImageButton
+            android:id="@+id/btnCapture"
+            android:layout_width="@dimen/shutter_button_size_large"
+            android:layout_height="@dimen/shutter_button_size_large"
+            android:background="@drawable/bg_shutter_neon"
+            android:src="@drawable/ic_camera_alt"
+            android:padding="@dimen/shutter_button_padding"
+            app:tint="@color/camera_neon_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/action_scan"/>
+
+        <!-- Camera Switch (Right) -->
+        <ImageButton
+            android:id="@+id/btnSwitchCamera"
+            android:layout_width="@dimen/icon_size_xxl"
+            android:layout_height="@dimen/icon_size_xxl"
+            android:background="@drawable/bg_glass_circle_dark"
+            android:src="@drawable/ic_switch_camera"
+            android:padding="@dimen/spacing_medium"
+            app:tint="@color/camera_neon_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnCapture"
+            app:layout_constraintBottom_toBottomOf="@id/btnCapture"
+            android:contentDescription="@string/action_scan"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

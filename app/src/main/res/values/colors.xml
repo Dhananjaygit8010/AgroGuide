@@ -5,4 +5,21 @@
     <color name="light_green">#B7FE7D</color>
     <color name="dark_green">#05880B</color>
     <color name="location_circle_color">#B5F5FE</color>
+    <color name="background_light">#F5F8F5</color>
+    <color name="brand_green_light">#EAF5EE</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="primary_green">#05880B</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="green_light_bg">#E8F5E9</color>
+    <color name="orange_light_bg">#FFF3E0</color>
+    <color name="orange_dark">#E65100</color>
+    <color name="camera_neon_green">#00FF66</color>
+    <color name="error_red">#E53935</color>
+    <color name="warning">#FFA000</color>
+    <color name="primary_neon">#00FF66</color>
+    <color name="teal_primary">#1C6774</color>
+    <color name="teal_photo_border">#4DB6AC</color>
+    <color name="error_text_red">#D32F2F</color>
+    <color name="input_stroke_gray">#E5E5EA</color>
 </resources>

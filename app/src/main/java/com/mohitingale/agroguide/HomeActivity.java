@@ -22,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -42,7 +44,6 @@ public class HomeActivity extends AppCompatActivity implements
     DrawerLayout drawerlayout;
     ImageView ivmenubtn;
     NavigationView navigationView;
-// hello this is from my side Dhananjay
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,7 @@ public class HomeActivity extends AppCompatActivity implements
 
 
         homeBottomNav=findViewById(R.id.homeBottomNav);
+        homeBottomNav.setItemActiveIndicatorColor(ColorStateList.valueOf(Color.parseColor("#1A2E7D32")));
         homeBottomNav.setOnNavigationItemSelectedListener(this);
         homeBottomNav.setSelectedItemId(R.id.bottomMenuHome);
 
@@ -205,10 +207,6 @@ public class HomeActivity extends AppCompatActivity implements
         else if (item.getItemId() == R.id.bottomMenuScan)
         {
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout,new ScanFragment()).commit();
-        }
-        else if (item.getItemId() == R.id.bottomMenuReports)
-        {
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout,new ReportsFragment()).commit();
         }
         else if (item.getItemId() == R.id.bottomMenuProfile)
         {

@@ -20,7 +20,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     ImageView imgProfile;
     Button btnChooseImage, btnSave;
-    EditText etName, etPhone, etEmail, etAddress;
+    EditText etName, etPhone, etEmail, etAddress, etUsername, etDOB;
 
     Uri imageUri;
 
@@ -49,10 +49,17 @@ public class EditProfileActivity extends AppCompatActivity {
         btnChooseImage = findViewById(R.id.btnChooseImage);
         btnSave = findViewById(R.id.btnSaveProfile);
 
+        ImageView btnBack = findViewById(R.id.btnBack);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
+
         etName = findViewById(R.id.editName);
         etPhone = findViewById(R.id.editPhone);
         etEmail = findViewById(R.id.editEmail);
         etAddress = findViewById(R.id.editAddress);
+        etUsername = findViewById(R.id.editUsername);
+        etDOB = findViewById(R.id.editDOB);
 
         SharedPreferences sp = getSharedPreferences("ProfileData", MODE_PRIVATE);
 
@@ -60,6 +67,8 @@ public class EditProfileActivity extends AppCompatActivity {
         etPhone.setText(sp.getString("phone", ""));
         etEmail.setText(sp.getString("email", ""));
         etAddress.setText(sp.getString("address", ""));
+        etUsername.setText(sp.getString("username", ""));
+        etDOB.setText(sp.getString("dob", ""));
 
         String image = sp.getString("image", "");
 
@@ -80,6 +89,8 @@ public class EditProfileActivity extends AppCompatActivity {
             editor.putString("phone", etPhone.getText().toString());
             editor.putString("email", etEmail.getText().toString());
             editor.putString("address", etAddress.getText().toString());
+            editor.putString("username", etUsername.getText().toString());
+            editor.putString("dob", etDOB.getText().toString());
 
             if (imageUri != null) {
                 editor.putString("image", imageUri.toString());

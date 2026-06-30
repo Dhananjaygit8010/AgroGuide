@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Outer Ring (Light Green) -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#2605880B" /> <!-- Transparent primary_green -->
+        </shape>
+    </item>
+    <!-- Middle Ring (Medium Green) -->
+    <item android:top="12dp" android:bottom="12dp" android:left="12dp" android:right="12dp">
+        <shape android:shape="oval">
+            <solid android:color="#8005880B" /> <!-- Semi-transparent primary_green -->
+        </shape>
+    </item>
+    <!-- Inner Circle (Dark/Primary Green) -->
+    <item android:top="24dp" android:bottom="24dp" android:left="24dp" android:right="24dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/primary_green" />
+        </shape>
+    </item>
+</layer-list>
