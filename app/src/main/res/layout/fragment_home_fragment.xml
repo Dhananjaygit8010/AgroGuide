@@ -178,6 +178,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="100dp"
                     android:layout_height="150dp"
+                    android:id="@+id/cardCropAdvisory"
                     android:layout_margin="6dp"
                     android:backgroundTint="#F8FCF4"
                     app:cardCornerRadius="16dp"
@@ -214,6 +215,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="100dp"
                     android:layout_height="150dp"
+                    android:id="@+id/cardDiseaseDetection"
                     android:backgroundTint="#F8FCF4"
                     android:layout_margin="6dp"
                     app:cardCornerRadius="16dp"
@@ -250,6 +252,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="100dp"
                     android:layout_height="150dp"
+                    android:id="@+id/cardIrrigationAssistant"
                     android:layout_margin="6dp"
                     android:backgroundTint="#F8FCF4"
                     app:cardCornerRadius="16dp"
@@ -286,6 +289,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="100dp"
                     android:layout_height="150dp"
+                    android:id="@+id/cardFertilizerGuide"
                     android:layout_margin="6dp"
                     android:backgroundTint="#F8FCF4"
                     app:cardCornerRadius="16dp"
@@ -344,6 +348,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvFarmOverview"
                 android:text="View All →"
                 android:textColor="#2E7D32"
                 android:textStyle="bold"
@@ -512,6 +517,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvAIRecommendation"
                 android:text="View All →"
                 android:textStyle="bold"
                 android:textSize="15sp"
@@ -525,6 +531,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
                 android:layout_height="170dp"
+                android:id="@+id/cardAIRecommendation"
                 android:layout_weight="2"
                 android:backgroundTint="#F8FCF4"
                 app:cardCornerRadius="16dp"
@@ -535,6 +542,7 @@
                     android:orientation="horizontal"
                     android:padding="12dp">
                     <ImageView
+                        android:id="@+id/imgRecommendation"
                         android:layout_width="90dp"
                         android:layout_height="140dp"
                         android:scaleType="centerCrop"
@@ -578,6 +586,7 @@
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:id="@+id/tvViewDetails"
                                 android:layout_weight="1"
                                 android:text="View Details"
                                 android:textStyle="bold"
@@ -593,6 +602,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="120dp"
                 android:layout_height="170dp"
+                android:id="@+id/cardAIWeather"
                 android:layout_marginStart="10dp"
                 app:cardCornerRadius="16dp"
                 app:cardBackgroundColor="#FFF8E1"
@@ -660,6 +670,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
                 android:layout_height="95dp"
+                android:id="@+id/cardAskAI"
                 android:layout_weight="1"
                 android:backgroundTint="#F8FCF4"
                 android:layout_marginEnd="8dp"
@@ -685,6 +696,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
                 android:layout_height="95dp"
+                android:id="@+id/cardMarket"
                 android:layout_weight="1"
                 android:backgroundTint="#F8FCF4"
                 android:layout_marginEnd="8dp"
@@ -710,6 +722,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
                 android:layout_height="95dp"
+                android:id="@+id/cardBuy"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="#F8FCF4"
@@ -735,6 +748,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="0dp"
                 android:layout_height="95dp"
+                android:id="@+id/cardnews"
                 android:layout_weight="1"
                 app:cardCornerRadius="14dp"
                 android:backgroundTint="#F8FCF4"
@@ -776,6 +790,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvHome_ra_viewAll"
                 android:text="View All →"
                 android:textStyle="bold"
                 android:textColor="#0A7D38"/>
@@ -793,6 +808,7 @@
                 android:orientation="vertical"
                 android:padding="12dp">
                 <LinearLayout
+                    android:id="@+id/home_ra_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -834,6 +850,7 @@
                     android:layout_marginVertical="10dp"
                     android:background="#EEEEEE"/>
                 <LinearLayout
+                    android:id="@+id/home_ra_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -875,6 +892,7 @@
                     android:layout_marginVertical="10dp"
                     android:background="#EEEEEE"/>
                 <LinearLayout
+                    android:id="@+id/home_ra_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -916,6 +934,7 @@
                     android:layout_marginVertical="10dp"
                     android:background="#EEEEEE"/>
                 <LinearLayout
+                    android:id="@+id/home_ra_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -972,6 +991,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvLearningCentreViewAll"
                 android:text="View All →"
                 android:textColor="#0A7D38"
                 android:textStyle="bold"
@@ -980,6 +1000,7 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/cardLearningCentre"
             android:layout_margin="16dp"
             android:backgroundTint="#F8FCF4"
             app:cardCornerRadius="18dp"

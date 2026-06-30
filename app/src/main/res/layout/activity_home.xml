@@ -23,9 +23,7 @@
         android:layout_weight="90"
         android:background="#F5F5F5"
         android:id="@+id/homeFrameLayout">
-
     </FrameLayout>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -38,7 +36,6 @@
         app:itemTextColor="@color/nav_item_color"
         android:id="@+id/homeBottomNav"
         app:menu="@menu/home_bottom_menu"/>
-
 </LinearLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"

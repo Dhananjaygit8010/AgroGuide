@@ -60,10 +60,9 @@ public class HomeActivity extends AppCompatActivity implements
         });
 
         navigationView.setNavigationItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.menuhomemyprofile)
+            if (item.getItemId() == R.id.myProfileFragment)
             {
-                Intent i = new Intent(HomeActivity.this,MyProfileActivity.class);
-                startActivity(i);
+               getSupportFragmentManager().beginTransaction().replace(R.id.myProfileFragment,new ProfileFragment()).commit();
             }
             else if (item.getItemId() == R.id.menuhomemylocation)
             {
