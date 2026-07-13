@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgroGuide">
         <activity
+            android:name=".MusicActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProfileFragmentActivities.NotificationSettingActivity"
             android:exported="false" />
         <activity
@@ -104,8 +107,7 @@
             android:theme="@style/ShowActionBar" />
         <activity
             android:name=".ContactUsActivity"
-            android:exported="false"
-            android:theme="@style/ShowActionBar" />
+            android:exported="false"/>
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
@@ -119,6 +121,7 @@
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".ForgetActivity"

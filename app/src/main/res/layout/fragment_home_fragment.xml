@@ -141,6 +141,26 @@
                 </LinearLayout>
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/white">
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/isImageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:iss_auto_cycle="true"
+                app:iss_delay="3000"
+                app:iss_period="3000"
+                app:iss_selected_dot="@drawable/default_selected_dot"
+                app:iss_unselected_dot="@drawable/default_unselected_dot"
+                app:iss_text_align="CENTER"
+                app:iss_text_color="@android:color/white"/>
+
+        </androidx.cardview.widget.CardView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

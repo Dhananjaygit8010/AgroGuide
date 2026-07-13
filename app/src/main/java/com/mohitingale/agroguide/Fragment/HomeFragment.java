@@ -20,7 +20,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.AnimationTypes;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.interfaces.ItemClickListener;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.card.MaterialCardView;
+import com.mohitingale.agroguide.ContactUsActivity;
 import com.mohitingale.agroguide.HomeFragmentActivity.AIRecommendationActivity;
 import com.mohitingale.agroguide.HomeFragmentActivity.BuyInputsActivity;
 import com.mohitingale.agroguide.HomeFragmentActivity.ChatBotActivity;
@@ -40,6 +46,8 @@ import com.mohitingale.agroguide.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -52,12 +60,35 @@ public class HomeFragment extends Fragment {
     private TextView tvHome_ra_viewAll, tvLearningCentreViewAll;
     private LinearLayout home_ra_1, home_ra_2, home_ra_3, home_ra_4;
     private TextView tvTemperature, tvHumidity, tvWindSpeed, tvWeather;
+    private ImageSlider imageSlider;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_fragment, container, false);
+
+        imageSlider = view.findViewById(R.id.isImageSlider);
+        ArrayList<SlideModel> slideModelArrayList = new ArrayList<>();
+        slideModelArrayList.add(new SlideModel(R.drawable.slider1, ScaleTypes.CENTER_CROP));
+        slideModelArrayList.add(new SlideModel(R.drawable.slider2, ScaleTypes.CENTER_CROP));
+        slideModelArrayList.add(new SlideModel(R.drawable.slider3, ScaleTypes.CENTER_CROP));
+        slideModelArrayList.add(new SlideModel(R.drawable.slider4, ScaleTypes.CENTER_CROP));
+        slideModelArrayList.add(new SlideModel(R.drawable.slider5, ScaleTypes.CENTER_CROP));
+        slideModelArrayList.add(new SlideModel(R.drawable.slider6, ScaleTypes.CENTER_CROP));
+        imageSlider.setImageList(slideModelArrayList);
+        imageSlider.setSlideAnimation(AnimationTypes.DEPTH_SLIDE);
+        imageSlider.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onItemSelected(int i) {
+                Toast.makeText(requireContext(), "Contact Us Activity", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(requireContext(), ContactUsActivity.class);
+                startActivity(intent);
+            }
+            @Override
+            public void doubleClick(int i) {
+            }
+        });
+        return view;
     }
 
     @Override

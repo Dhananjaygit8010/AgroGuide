@@ -171,6 +171,15 @@ public class DiseaseDetectionActivity extends AppCompatActivity {
      * Switch between Front and Back camera.
      */
     private void switchCamera() {
+        // Turn off torch before switching to prevent hardware state issues (CAMERA_ERROR 3)
+        if (camera != null && isTorchOn) {
+            camera.getCameraControl().enableTorch(false);
+            isTorchOn = false;
+            if (btnFlash != null) {
+                btnFlash.setImageResource(R.drawable.ic_flash_off);
+            }
+        }
+
         if (currentCameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
             currentCameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA;
         } else {
@@ -230,6 +239,9 @@ public class DiseaseDetectionActivity extends AppCompatActivity {
 
         cameraProviderFuture.addListener(() -> {
             try {
+                // Ensure activity is still valid before binding
+                if (isFinishing() || isDestroyed()) return;
+
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
 
                 // Viewfinder preview
@@ -242,7 +254,9 @@ public class DiseaseDetectionActivity extends AppCompatActivity {
                         .build();
 
                 try {
+                    // Unbind any previous use cases before re-binding
                     cameraProvider.unbindAll();
+
                     camera = cameraProvider.bindToLifecycle(
                             this, currentCameraSelector, preview, imageCapture);
 

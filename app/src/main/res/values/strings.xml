@@ -34,4 +34,6 @@
     <string name="diagnosis_chemical_remedy_fallback">Chemical Remedy</string>
     <string name="diagnosis_no_chemical_remedy">No chemical remedies recommended.</string>
     <string name="diagnosis_failed_parse">Failed to parse diagnosis data.</string>
+    <string name="music_player">Music Player</string>
+    <string name="listen_to_farming_songs">Listen to farming songs</string>
 </resources>

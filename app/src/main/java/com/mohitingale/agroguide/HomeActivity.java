@@ -70,6 +70,11 @@ public class HomeActivity extends AppCompatActivity implements
                 Intent i = new Intent(HomeActivity.this, MyLocationActivity.class);
                 startActivity(i);
             }
+            else if (item.getItemId() == R.id.menuHomeMusic)
+            {
+                Intent i = new Intent(HomeActivity.this, MusicActivity.class);
+                startActivity(i);
+            }
             else if (item.getItemId() == R.id.menuhomesettings)
             {
                 Intent i = new Intent(HomeActivity.this,SettingsActivity.class);

@@ -1,6 +1,7 @@
 package com.mohitingale.agroguide.HomeFragmentActivity;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;

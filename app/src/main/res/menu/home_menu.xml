@@ -12,6 +12,11 @@
         android:title="My Location"
         android:icon="@drawable/location_icon"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/menuHomeMusic"
+        android:title="Music"
+        android:icon="@drawable/music_icon"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/menuhomesettings"

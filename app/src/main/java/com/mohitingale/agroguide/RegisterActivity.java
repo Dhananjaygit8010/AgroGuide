@@ -1,6 +1,7 @@
 package com.mohitingale.agroguide;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.MediaRouter;
 import android.os.Bundle;
@@ -23,12 +24,24 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.mohitingale.agroguide.Common.Urls;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
 public class RegisterActivity extends AppCompatActivity {
 
     EditText etregistername,etregisterusername,etregisteremail,etregisterphone,etregisterpass,etregisterconfirmpass;
     CheckBox cbshowhidepass;
     Button btn_register;
     TextView tvregister_login;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
         btn_register=findViewById(R.id.btn_register);
 
         tvregister_login=findViewById(R.id.tvregister_login);
+
+        progressDialog = new ProgressDialog(RegisterActivity.this);
 
         cbshowhidepass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -126,7 +141,10 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(RegisterActivity.this, "Registration Successfully Done", Toast.LENGTH_SHORT).show();
+                    progressDialog.setTitle("Registration Process...");
+                    progressDialog.setMessage("Plzz wait");
+                    progressDialog.show();
+                    registerUser();
                 }
 
             }
@@ -152,5 +170,65 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private void registerUser()
+    {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        params.put("name",etregistername.getText().toString());
+        params.put("username",etregisterusername.getText().toString());
+        params.put("email",etregisteremail.getText().toString());
+        params.put("phone",etregisterphone.getText().toString());
+        params.put("password",etregisterpass.getText().toString());
+
+        client.post(Urls.registerUserAPI,params,new JsonHttpResponseHandler()
+                {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+
+                        progressDialog.dismiss();
+
+                        if (response == null) {
+                            Toast.makeText(RegisterActivity.this, "Response is null", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        try {
+                            String status = response.getString("success");
+                            String message = response.getString("message");
+
+                            if (status.equals("1"))
+                            {
+                                Toast.makeText(RegisterActivity.this, "Registration Successfully Done", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            }
+                            else
+                            {
+                                Toast.makeText(RegisterActivity.this,""+message,Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        } catch (JSONException e) {
+
+
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                        progressDialog.dismiss();
+                        String error = (errorResponse != null) ? errorResponse.toString() : throwable.getMessage();
+                        Toast.makeText(RegisterActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+
     }
 }
